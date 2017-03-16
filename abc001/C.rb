@@ -1,7 +1,7 @@
 # http://abc001.contest.atcoder.jp/tasks/abc001_3
 
 deg, dis = gets.split.map(&:to_i)
-speed = (dis / 60.0).round(2)
+speed = (dis / 60.0).round(1)
 
 if speed <= 0.2 then
     w = 0
@@ -31,12 +31,9 @@ else
     w = 12
 end
 
-first = 'N'*5 + 'E'*6 + 'S'*10 + 'W'*6 + 'N'*5
-second = (' ' + 'N'*2 + ' ')*2 + (' ' + 'S'*2 + ' ')*4 + (' ' + 'N'*2 + ' ')*2
-third = (' ' + 'E'*7)*2 + (' ' + 'W'*7)*2
+dir_arr = %w(N NNE NE ENE E ESE SE SSE S SSW SW WSW W WNW NW NNW N)
 
-idx = (deg / 112.5).ceil
-puts(idx)
-dir = (w == 0) ? 'C' : first[idx] + second[idx] + third[idx]
+idx = (deg / 225.0).round
+dir = (w == 0) ? 'C' : dir_arr[idx]
 
-puts(dir.gsub(' ', '') + ' ' + w.to_s)
+puts(dir + ' ' + w.to_s)
