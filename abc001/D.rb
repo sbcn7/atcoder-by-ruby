@@ -5,14 +5,14 @@ times = []
 ans = []
 
 # 入力を5分単位で丸めてtimesに格納
-N.times { |n|
+N.times {
   s, e = gets.split('-').map(&:to_i)
   s -= s % 5
   e += (e % 5 == 0) ? 0 : 5 - e % 5
   times.push([s, (e % 100 == 60) ? e + 40 : e])
 }
 
-# 振り始めの時刻の早い順に並べ替え
+# 降り始めの時刻の早い順に並べ替え
 times = times.sort
 
 # 時刻の重複部分をまとめた結果をansに格納
