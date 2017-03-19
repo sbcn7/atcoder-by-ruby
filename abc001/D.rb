@@ -1,31 +1,33 @@
 # http://abc001.contest.atcoder.jp/tasks/abc001_4
 
 N = gets.to_i
-s_e = []
+times = []
 ans = []
 
+# 入力を5分単位で丸めてtimesに格納
 N.times { |n|
   s, e = gets.split('-').map(&:to_i)
-  s_e[n] = [s / 5 * 5, (e + 4) / 5 * 5]
-  if s_e[n][1] % 100 == 60 then
-    s_e[n][1] = s_e[n][1] / 100 * 100 + 100
-  end
+  s -= s % 5
+  e += (e % 5 == 0) ? 0 : 5 - e % 5
+  times.push([s, (e % 100 == 60) ? e + 40 : e])
 }
 
-s_e = s_e.sort { |a, b| a[0] <=> b[0] }
+# 振り始めの時刻の早い順に並べ替え
+times = times.sort
 
-s_e.each { |s, e|
-  if ans.length.zero? then
-    ans[0] = [s, e]
+# 時刻の重複部分をまとめた結果をansに格納
+times.push([9999, 9999])
+tmp = times.first
+times.each { |time|
+  if time[0] <= tmp[1] then
+    tmp[1] = [time[1], tmp[1]].max
   else
-    if s <= ans[ans.length - 1][1] then
-      ans[ans.length - 1][1] = (e > ans[ans.length - 1][1]) ? e : ans[ans.length - 1][1]
-    else
-      ans[ans.length] = [s, e]
-    end
+    ans.push(tmp)
+    tmp = time
   end
 }
 
-ans.each { |s, e|
-  puts("%04d-%04d" % [s, e])
+# ansの出力
+ans.each { |time|
+  puts("%04d-%04d" % time)
 }
