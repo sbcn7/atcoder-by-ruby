@@ -7,6 +7,8 @@ judge = []
 S.each_index do |idx|
   if S[idx] == '@' then
     judge.push(/[@atcoder]/ =~ T[idx])
+  elsif T[idx] == '@' then
+    judge.push(/[@atcoder]/ =~ S[idx])
   else
     judge.push(S[idx] == T[idx])
   end
