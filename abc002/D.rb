@@ -3,30 +3,20 @@
 N, M = gets.split.map(&:to_i)
 rels = []
 
-M.times {
-  rels.push(gets.split.map(&:to_i))
-}
+M.times do
+  rels.push gets.split.map { |num| num.to_i - 1 }
+end
 
-facs = rels
-flg = 0
+max = 1
 
-while flg == 0 do
-  facs_tmp = []
-  facs.each { |fac|
-    ((1..N).to_a - fac).each { |i|
-      if fac.all? { |n|
-        rels.include?([n, i].sort)
-      } then
-        facs_tmp.push(fac + [i])
-      end
-    }
-  }
-  if facs_tmp.empty? then
-    flg = 1
-  else
-    facs_tmp = facs_tmp.map(&:sort).uniq
-    facs = facs_tmp
+# N人いる時の1人以上の組合せは(2^N - 1)通り
+for i in 1..2**N do
+  # i番目の組合せを取得
+  group = N.times.select { |j| i >> j & 1 == 1 }
+  # 組合せ内が全て知り合いかどうか判定
+  if (group.combination(2).to_a - rels).empty?
+    max = [max, group.length].max
   end
 end
 
-puts(facs.empty? ? 1 : facs[0].length)
+puts max
