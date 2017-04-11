@@ -7,11 +7,20 @@ N.times do
   c.push gets.to_i
 end
 
-ans = 0
-(1...N).each do |i|
-  if c.slice(0..i - 1).any? { |x| x > c[i] }
-    ans += 1
+order_list = []
+(N - 1).downto(0) do |idx|
+p "idx: #{idx}"
+  now = c[idx]
+  tmp = [now]
+p "c.slice(0..#{idx}): #{c.slice(0..idx)}"
+  c.slice(0..idx).reverse_each do |x|
+    if x < now
+      tmp.push x
+      now = x
+    end
   end
+p "tmp: #{tmp}"
+  order_list.push tmp
 end
 
-puts ans
+puts N - order_list.map(&:size).max
