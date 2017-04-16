@@ -16,12 +16,14 @@ queue2 = []
 while y != gy || x != gx do
   while queue.size != 0 do
     y, x = queue.shift
-    c[y][x] = 'x'
     break if y == gy && x == gx
-    queue2.push [y - 1, x] if c[y - 1][x] == '.'
-    queue2.push [y + 1, x] if c[y + 1][x] == '.'
-    queue2.push [y, x - 1] if c[y][x - 1] == '.'
-    queue2.push [y, x + 1] if c[y][x + 1] == '.'
+    if c[y][x] != 'x'
+      c[y][x] = 'x'
+      queue2.push [y - 1, x] if c[y - 1][x] == '.'
+      queue2.push [y + 1, x] if c[y + 1][x] == '.'
+      queue2.push [y, x - 1] if c[y][x - 1] == '.'
+      queue2.push [y, x + 1] if c[y][x + 1] == '.'
+    end
   end
   count += 1 if y != gy || x != gx
   queue = queue2
