@@ -7,4 +7,4 @@ N.times do
   S.push gets.chomp
 end
 
-puts S.group_by { |x| x }.sort_by { |_, v| -v.size }[0][0]
+puts S.max_by { |s| S.count(s) }
