@@ -1,24 +1,12 @@
 # http://abc008.contest.atcoder.jp/tasks/abc008_3
 
-def count_front(coins)
-  status = Array.new(coins.size, 0)
-  coins.each_index do |idx1|
-    coins.each_index do |idx2|
-      status[idx2] += 1 if coins[idx2] % coins[idx1] == 0 && idx2 > idx1
-    end
-  end
-  return status.count { |s| s % 2 == 0 }
-end
-
 N = gets.to_i
 C = Array.new(N) { gets.to_i }
-
 count = 0
 
-C.permutation.each do |coins|
-  count += count_front(coins)
+C.each do |c1|
+  s = C.count { |c2| c1 % c2 == 0 } - 1
+  count += s.even? ? ((s + 2) / (s + 1).to_f) : 1
 end
 
-n = (1..N).inject(1,:*).to_f
-
-puts format "%.12f", count / n
+puts format "%.12f", count / 2.0
