@@ -2,20 +2,29 @@
 
 N, K = gets.split.map(&:to_i)
 S = gets.chomp.split('')
-s = S
+s = S.clone
 count = 0
-
+ 
 S.each_index do |idx|
-  idx_min = s.index(s[idx..S.size].min)
-  if idx != idx_min
-    count += 1
-    s_latter = s[idx..S.size]
-    s_latter.delete_at(idx_min)
-    if (S[[idx + 1, S.size].min..S.size] - s_latter).size <= K - count
-      s[idx], s[idx_min] = s[idx_min], s[idx]
-    end
-    count = (S - s).size
+  s_target = s[idx..N - 1].sort.find do |s_min|
+    tmp = s.clone
+    idx_min = s[idx..N - 1].index(s_min) + idx
+    tmp[idx], tmp[idx_min] = s[idx_min], s[idx]
+  count = 0
+  S.each_index do |i|
+    count += 1 unless S[i] == tmp[i]
+  end
+    count < K
+  end
+
+  if !s_target.nil? && s_target != s[idx]
+    idx_target = s[idx..N - 1].index(s_target) + idx
+    s[idx], s[idx_target] = s[idx_target], s[idx]
+  end
+  count = 0
+  S.each_index do |i|
+    count += 1 unless S[i] == s[i]
   end
 end
-
+ 
 puts s.join
