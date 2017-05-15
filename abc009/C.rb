@@ -2,33 +2,22 @@
 
 N, K = gets.split.map(&:to_i)
 S = gets.chomp.split('')
-s = S.clone
-count = 0
- 
-S.each_index do |idx|
-  s_target = s[idx..N - 1].sort.find do |s_min|
-    tmp = s.clone
-    idx_min = s[idx..N - 1].index(s_min) + idx
-    tmp[idx], tmp[idx_min] = s[idx_min], s[idx]
-    count = 0
-    S.each_index do |i|
-      count += 1 unless S[i] == tmp[i]
-    end
-#p "count: #{count}"
-#p s
-#p tmp
-    count <= K
-  end
-#p "s_target: #{s_target}"
+ans = ''
 
-  if !s_target.nil? && s_target != s[idx]
-    idx_target = s[idx..N - 1].index(s_target) + idx
-    s[idx], s[idx_target] = s[idx_target], s[idx]
+def diff(a, b)
+  # a固定で、Sに対するa+bの最小入れ替え回数をカウントする
+end
+
+for i in 0...S.length do
+  # t: まだ使える文字
+  S.each do |s|
+    t.push s if S.count(s) > ans.count(s)
   end
-  count = 0
-  S.each_index do |i|
-    count += 1 unless S[i] == s[i]
+
+  t.sort.each do |t_char|
+    if diff(ans + t_char, t.sort.shift) <= K
+      ans.push t_char
+      break
+    end
   end
 end
- 
-puts s.join
