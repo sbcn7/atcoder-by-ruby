@@ -8,12 +8,12 @@ def diff(a, b)
   # a固定で、@Sに対するa+bの最小入れ替え回数をカウントする
   tmp = []
   count = 0
-  for i in 0...a.size do
-    count += 1 if a[i] != @S[i]
+  a.each_index do |idx|
+    count += 1 if a[idx] != @S[idx]
   end
 
-  b.each_char do |x|
-    for idx in 0...b.size do
+  b.each do |x|
+    b.each_index do |idx|
       if x == @S[a.size + idx] && tmp[idx].nil?
         tmp[idx] = x
         break
@@ -29,13 +29,13 @@ for i in 0...@S.length do
   # t: まだ使える文字
   t = []
   @S.each do |s|
-    t.push s if @S.count(s) > t.count(s) + ans.count(s)
+    t.push s if @S.count(s) > (t + ans).count(s)
   end
 
   t.sort.each do |t_char|
     tmp = t.clone
     tmp.delete_at(t.index(t_char))
-    if diff(ans.join + t_char, tmp.join) <= K
+    if diff(ans + [t_char], tmp) <= K
       ans.push t_char
       break
     end
