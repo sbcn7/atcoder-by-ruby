@@ -12,3 +12,9 @@ AtCoderの過去問をRubyで解きます
   - [解説](https://www.slideshare.net/chokudai/abc004)を読んでも解けない...
   - もっと簡単な問題で動的計画法の実装を練習してみる？
 
+## memo
+
+a = gets.to_i
+b = gets.to_i
+ 
+puts (a % b).zero? ? 0 : b - (a % b)
