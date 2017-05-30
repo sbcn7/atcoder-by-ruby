@@ -11,3 +11,12 @@ AtCoderの過去問をRubyで解きます
 - [abc004_D](http://abc004.contest.atcoder.jp/tasks/abc004_4)の満点解
   - [解説](https://www.slideshare.net/chokudai/abc004)を読んでも解けない...
   - もっと簡単な問題で動的計画法の実装を練習してみる？
+
+# memo
+
+~~~
+# http://abc016.contest.atcoder.jp/tasks/abc016_1
+
+M, D = gets.split.map(&:to_i)
+puts M % D == 0 ? 'YES' : 'NO'
+~~~
