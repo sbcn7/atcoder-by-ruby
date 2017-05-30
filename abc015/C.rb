@@ -3,8 +3,15 @@
 N, K = gets.split.map(&:to_i)
 T = []
 N.times { T << gets.split.map(&:to_i) }
+judge = false
 
-[*1..K].repeated_combination(N) do |pattern|
-  (0..(N - 1)).each do |i|
+[*0..(K - 1)].repeated_permutation(N) do |pattern|
+  selected = []
+  T.each { |t_line| selected << t_line[pattern.shift] }
+  if selected.inject(&:^) == 0
+    judge = true
+    break
   end
 end
+
+puts judge ? 'Found' : 'Nothing'
