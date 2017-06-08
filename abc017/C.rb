@@ -3,27 +3,25 @@
 N, M = gets.split.map(&:to_i)
 l_r_s = Array.new(N) { gets.split.map(&:to_i) }
 
-# 遺跡の全探索パターンの得点を求める
-scores = []
-(0..N**2).each do |i|
-  sum = 0
-  (0..(N - 1)).each do |j|
-    sum += l_r_s[j][2] if i >> j & 1 == 1
-  end
-  scores << [i, sum]
-end
-
-# 得点の大きい順に魔王が復活するかどうかを判定する
-gems = Array.new(M, 0)
-scores.sort_by { |_pattern, score| score }.reverse
+gems = Array.new(M)
 max_score = 0
-scores.each do |pattern, score|
+
+# N**2: 遺跡の探索パターン数
+#       xビット目が1の時、x番目の遺跡を探索する。
+(0..N**2).each do |pattern|
+  gems.fill(0)
   (0..(N - 1)).each do |i|
+    # i番目の遺跡を探索するかどうか判定
     if pattern >> i & 1 == 1
       (l_r_s[i][0]..l_r_s[i][1]).each { |j| gems[j - 1] += 1 }
     end
   end
-  max_score = [max_score, score].max if gems.any? { |gem| gem.zero? }
+
+  if gems.any? { |gem| gem.zero? }
+    score = 0
+    (0..(N - 1)).each { |j| score += l_r_s[j][2] if pattern >> j & 1 == 1 }
+    max_score = [max_score, score].max
+  end
 end
 
 puts max_score
