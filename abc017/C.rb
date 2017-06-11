@@ -6,9 +6,9 @@ l_r_s = Array.new(N) { gets.split.map(&:to_i) }
 gems = Array.new(M)
 max_score = 0
 
-# N**2: 遺跡の探索パターン数
+# 2**N: 遺跡の探索パターン数
 #       xビット目が1の時、x番目の遺跡を探索する。
-(0..N**2).each do |pattern|
+(0..(2**N - 1)).each do |pattern|
   gems.fill(0)
   (0..(N - 1)).each do |i|
     # i番目の遺跡を探索するかどうか判定
