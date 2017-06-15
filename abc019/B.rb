@@ -8,10 +8,10 @@ s.each_char do |c|
   if before_c == c
     count += 1
   else
-    print "#{before_c}#{count}"
+    print "#{before_c}#{count}" unless before_c.empty?
     before_c = c
     count = 1
   end
 end
 
-print "#{before_c}#{count}"
+puts "#{before_c}#{count}"
