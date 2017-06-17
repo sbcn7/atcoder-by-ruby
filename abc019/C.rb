@@ -2,10 +2,13 @@
 
 N = gets.to_i
 a = gets.split.map(&:to_i)
-count = 0
+odd_list = []
 
 a.each do |x|
-  count += (x % 2 == 0) ? 0 : 1
+  while x.even?
+    x /= 2
+  end
+  odd_list << x
 end
 
-puts count
+puts odd_list.uniq.length
