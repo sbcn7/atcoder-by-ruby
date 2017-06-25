@@ -10,8 +10,11 @@ H.times do |i|
   end
 end
 
-dist_y, dist_x = G - S
-path_list = Array.new(dist_y, 'y') + Array.new(dist_x, 'x')
+dist_y = (G[0] - S[0]).abs
+dist_x = (G[1] - S[1]).abs
+path_y = dist_y.zero? ? [] : Array.new(dist_y, 'y')
+path_x = dist_x.zero? ? [] : Array.new(dist_x, 'x')
+path_list = path_y + path_x
 time = 0
 
 (T - 1).downto(1) do |x_time|
@@ -22,14 +25,12 @@ time = 0
     path.each do |dir|
       px += 1 if dir == 'x'
       py += 1 if dir == 'y'
-p px
-p py
-      time += s[py][px].equal?('#') ? x_time : 1
-p "-----"
+      time += (s[py][px] == '#') ? x_time : 1
     end
-    break if time <= T
+    if time <= T
+      puts x_time
+      break
+    end
   end
   break if time <= T
 end
-
-puts time
