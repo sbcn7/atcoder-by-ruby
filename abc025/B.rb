@@ -1,10 +1,13 @@
 # http://abc025.contest.atcoder.jp/tasks/abc025_b
 
 N, A, B = gets.split.map(&:to_i)
-sd = Array.new(N) { gets.split }
+sd_list = Array.new(N) { gets.split }
 
-point = sd.inject(0) do |dist, s, d|
-  dist += (s == 'East') ? d.to_i : d.to_i * (-1)
+point = sd_list.inject(0) do |dist, sd|
+  move = sd[1].to_i < A ? A : [sd[1].to_i, B].min
+  sd[0] == 'East' ? dist + move : dist - move
 end
 
-
+print 'East ' if point > 0
+print 'West ' if point < 0
+puts point.abs
