@@ -7,4 +7,13 @@ x = (S.count('R') - S.count('L')).abs
 y = (S.count('U') - S.count('D')).abs
 question = S.count('?')
 
-puts x + y + question
+if T == 1
+  puts x + y + question
+else
+  ans = x + y - question
+  if ans < 0
+    puts ans.even? ? 0 : 1
+  else
+    puts ans
+  end
+end
